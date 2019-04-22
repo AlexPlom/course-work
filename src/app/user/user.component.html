@@ -1,7 +1,18 @@
-<h2>My Users</h2>
-<ul class="users">
+<h2 style="text-align: center">My Users</h2>
+<table class="table table-bordered table-striped text-center" style="width:50%;margin: auto;">
+    <th scope="col">Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Role</th>
+    <tr *ngFor="let user of users; let even = even; let odd = odd" [class.selected]="user === selectedUser" (click)="onSelect(user)" [ngClass]="{ odd: odd, even: even }">
+      <td>{{user.name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.role}}</td>
+    </tr>
+    
+  </table>
+<!-- <ul class="users">
   <li *ngFor="let user of users" [class.selected]="user === selectedUser" (click)="onSelect(user)" >
     <span class="badge">{{user.name}}</span> {{user.email}}
   </li>
-</ul>
-<app-user-detail [user]="selectedUser"></app-user-detail>
+</ul> -->
+<app-user-detail [user]="selectedUser" style="text-align:center;"></app-user-detail>
