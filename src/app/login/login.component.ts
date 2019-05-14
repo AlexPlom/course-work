@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   password(): string { return this.profileForm.get('password').value; }
 
   onSubmit() {
-    console.warn(this.profileForm.value);
 
     if(this.loginService.loginUser(this.username(), this.password())){
       console.log("shit")

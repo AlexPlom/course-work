@@ -20,7 +20,8 @@ export class LoginService {
     if(this.users.some((item) => item.name === username && item.password === password)){
       var gg = this.users.find((item) => item.name === username && item.password === password);
       console.log("Successfully logging in", username);
-      // Should include a cookie storage here 
+      
+      
       this.loggedInUser = gg;
       this.userHasLoggedIn = true;
       return true;

@@ -11,6 +11,8 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
+import { CourseDetailComponent } from './course/course-detail/course-detail.component';
+import { CourseEditComponent } from './course/course-edit/course-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { LoginService } from './login.service';
     CourseComponent,
     UserDetailComponent,
     MessagesComponent,
-    LoginComponent
+    LoginComponent,
+    CourseDetailComponent,
+    CourseEditComponent
   ],
   imports: [
     BrowserModule,
