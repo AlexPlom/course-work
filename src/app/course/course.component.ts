@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Course, COURSES } from '../course'
+import { Course } from '../course'
 import { LoginService } from '../login.service';
+import { CourseService} from '../course.service';
 
 @Component({
   selector: 'app-course',
@@ -8,15 +9,13 @@ import { LoginService } from '../login.service';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
-  courses: Course[] = COURSES;
+  courses: Course[] ;
   selectedCourse: Course;
   courseToEdit: Course;
 
   onSelect(course: Course): void { 
     if(this.loginService.isUserLoggedIn()){
       if((this.selectedCourse == undefined) === false && this.selectedCourse.title === course.title){ 
-        console.log(this.selectedCourse.title);
-        console.log(course.title);
         this.selectedCourse = null;
       }
       else{
@@ -27,7 +26,22 @@ export class CourseComponent implements OnInit {
   
   onSelectToEdit(course: Course): void { 
     if(this.loginService.isUserLoggedIn()){
-      this.courseToEdit = course;
+      if((this.courseToEdit == undefined) === false && this.courseToEdit.id === course.id){
+        this.courseToEdit = null;
+      }
+      else{
+        this.courseToEdit = course;
+      }
+    }
+  }
+
+  deleteCourse(course: Course): void { 
+    this.courseService.deleteCourse(course.id)
+    if(this.selectedCourse.id === course.id){
+      this.selectedCourse = null;
+    }
+    if(this.courseToEdit.id === course.id){
+      this.courseToEdit = null;
     }
   }
 
@@ -35,8 +49,10 @@ export class CourseComponent implements OnInit {
     return this.loginService.isUserLoggedIn() && this.loginService.isUserAdmin();
   }
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private courseService: CourseService) { }
 
   ngOnInit() {
+     this.courseService.getCourses()
+     .subscribe(courses => this.courses = courses);
   }
 }

@@ -8,7 +8,6 @@ import { UserComponent } from './user/user.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CourseComponent } from './course/course.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
-import { MessagesComponent } from './messages/messages.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login.service';
 import { CourseDetailComponent } from './course/course-detail/course-detail.component';
@@ -20,7 +19,6 @@ import { CourseEditComponent } from './course/course-edit/course-edit.component'
     UserComponent,
     CourseComponent,
     UserDetailComponent,
-    MessagesComponent,
     LoginComponent,
     CourseDetailComponent,
     CourseEditComponent

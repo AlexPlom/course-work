@@ -1,15 +1,9 @@
 <form *ngIf="loginService.isUserLoggedIn() === false" [formGroup]="profileForm" (ngSubmit)="onSubmit()" style="width: 50%; margin: 0 auto">
-  <div>
-  <label>
-    First Name:
-    <input type="text" formControlName="username">
-  </label>
-  </div>
-  <div>
-  <label >
-    Last Name:
-    <input type="password" formControlName="password">
-  </label>
+  <div class="form-group">
+    <label>Username: </label>
+    <input type="text" class="form-control" formControlName="username">
+    <label >Password: </label>
+    <input type="password" class="form-control" formControlName="password">
   </div>
   <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Login</button>
 </form>
