@@ -3,12 +3,17 @@
     <th scope="col">Name</th>
     <th scope="col">Description</th>
     <th scope="col">Rating</th>
-    <th *ngIf="loginService.isUserLoggedIn()" scope="col">View</th>
+    <th scope="col">View</th>
+    <th scope="col">Edit</th>
+    <th scope="col">Delete</th>
     <tr *ngFor="let course of courses; let even = even; let odd = odd" [class.selected]="course === selectedCourse" [ngClass]="{ odd: odd, even: even }">
       <td>{{course.title}}</td>
       <td>{{course.description}}</td>
       <td>{{course.rating}}</td>
-      <td *ngIf="loginService.isUserLoggedIn()" (click)="onSelect(course)"><img src="assets/img/eye.svg" alt="View"></td>
+      <td (click)="onSelect(course)"><img src="assets/img/eye.svg" alt="View"></td>
+      <td (click)="onSelectToEdit(course)"><img src="assets/img/brush.svg" alt="Edit" ></td>
+      <td (click)="delete(course)"><img src="assets/img/trash.svg" alt="Delete"></td>
     </tr>
   </table>
+<app-course-edit [course]="courseToEdit" style="text-align:center;"></app-course-edit>
 <app-course-detail [course]="selectedCourse" style="text-align:center;"></app-course-detail>
