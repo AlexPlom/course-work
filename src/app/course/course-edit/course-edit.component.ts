@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Course } from 'src/app/course';
 import { CourseService } from 'src/app/course.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-course-edit',
@@ -10,13 +11,13 @@ import { CourseService } from 'src/app/course.service';
 export class CourseEditComponent implements OnInit {
   @Input() course: Course;
 
-  constructor(private courseService: CourseService) { }
+  constructor(private courseService: CourseService, private router: Router) { }
 
   ngOnInit() {
-
   }
 
   onSubmit(course: Course) {
-    this.courseService.updateCourse(course);
+    this.courseService.updateCourse(course).subscribe();
+    console.log('updatingCourse');
   }
 }

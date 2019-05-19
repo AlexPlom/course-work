@@ -10,19 +10,17 @@ export class LoginService {
   loggedInUser: User;
   userHasLoggedIn: boolean = false;
 
-  constructor(private userService: UserService) { }
-
-  loginUser(username:string, password: string ): boolean { 
-    
+  constructor(private userService: UserService) {
     this.userService.getUsers()
     .subscribe(users => this.users = users);
-    
+   }
+
+  loginUser(username:string, password: string ): boolean { 
     if(this.users.some((item) => item.name === username && item.password === password)){
-      var gg = this.users.find((item) => item.name === username && item.password === password);
+      var user = this.users.find((item) => item.name === username && item.password === password);
       console.log("Successfully logging in", username);
       
-      
-      this.loggedInUser = gg;
+      this.loggedInUser = user;
       this.userHasLoggedIn = true;
       return true;
     }
@@ -36,5 +34,4 @@ export class LoginService {
   isUserAdmin(): boolean { 
     return this.loggedInUser.role === "admin";
   }
-
 }

@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
 
     if(this.loginService.loginUser(this.username(), this.password())){
-      console.log("shit")
     }
   }
 }
