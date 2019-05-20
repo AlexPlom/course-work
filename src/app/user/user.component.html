@@ -3,11 +3,13 @@
     <th scope="col">Name</th>
     <th scope="col">Email</th>
     <th scope="col">Role</th>
-    <tr *ngFor="let user of users; let even = even; let odd = odd" [class.selected]="user === selectedUser" (click)="onSelect(user)" [ngClass]="{ odd: odd, even: even }">
+    <th scope="col">Status</th>
+    <th scope="col">Block</th>
+    <tr *ngFor="let user of users; let even = even; let odd = odd" [ngClass]="{ odd: odd, even: even }">
       <td>{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.role}}</td>
+      <td>{{user.isBlocked}}</td>
+      <td (click)="block(user)"><img src="assets/img/ban.svg" alt="Block"></td>
     </tr>
-    
   </table>
-<app-user-detail [user]="selectedUser" style="text-align:center;"></app-user-detail>

@@ -32,7 +32,9 @@ export class CourseService {
   }
   
   addCourse(course: Course): Observable<any> {
-    return this.http.post(this.coursesUrl, course, this.httpOptions).pipe(
+    console.log("im here");
+    return this.http.post(this.coursesUrl, course, this.httpOptions)
+    .pipe(
       tap(_ => console.log(`adding course id=${course.id}`)),
       catchError(this.handleError<any>('addCourse'))
     );
@@ -45,6 +47,14 @@ export class CourseService {
       catchError(this.handleError<Course[]>('getCourses', []))
     );
   }
+
+  getCourse(id: number): Observable<Course> {
+    return this.http.get<Course>(this.coursesUrl + "/" + id)
+    .pipe(
+      tap(_ => console.log('fetched courses')),
+      catchError(this.handleError<Course>('getCourses'))
+    );
+}
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

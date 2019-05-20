@@ -2,13 +2,13 @@
 <table class="table table-bordered table-striped text-center" style="width:50%;margin: auto;">
     <th scope="col">Name</th>
     <th scope="col">Description</th>
-    <th scope="col">Rating</th>
+    <th *ngIf="loginService.isUserLoggedIn()" scope="col">Rating</th>
     <th *ngIf="loginService.isUserLoggedIn()" scope="col">View</th>
     <tr *ngFor="let course of courses; let even = even; let odd = odd" [class.selected]="course === selectedCourse" [ngClass]="{ odd: odd, even: even }">
       <td>{{course.title}}</td>
       <td>{{course.description}}</td>
       <td>{{course.rating}}</td>
-      <td *ngIf="loginService.isUserLoggedIn()" (click)="onSelect(course)"><img src="assets/img/eye.svg" alt="View"></td>
+      <td *ngIf="loginService.isUserLoggedIn()"><a routerLink="/detail/{{course.id}}" ><img src="assets/img/eye.svg" alt="View"></a>
+    </td>
     </tr>
   </table>
-<app-course-detail [course]="selectedCourse" style="text-align:center;"></app-course-detail>

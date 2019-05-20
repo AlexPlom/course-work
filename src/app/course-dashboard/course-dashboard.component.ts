@@ -9,6 +9,7 @@ import { CourseService} from '../course.service';
 })
 export class CourseDashboardComponent implements OnInit {
   courses: Course[] ;
+  courseToAdd: Course = new Course();
   selectedCourse: Course;
   courseToEdit: Course;
 
@@ -28,6 +29,12 @@ export class CourseDashboardComponent implements OnInit {
     else{
       this.courseToEdit = course;
     }
+  }
+
+  add(courseToAdd: Course): void { 
+    courseToAdd.rating = 0;
+    this.courseService.addCourse(courseToAdd).subscribe();
+    this.courses.push(courseToAdd);
   }
 
   delete(course: Course): void {

@@ -10,19 +10,22 @@ import { UserService} from '../user.service';
 
 export class UserComponent implements OnInit {
   users: User[];
-  selectedUser: User;
 
   constructor(private userService: UserService) {
 
   }
-
-  onSelect(user: User): void { 
-    this.selectedUser = user;
-  }
-
   getUsers(): void {
     this.userService.getUsers()
     .subscribe(users => this.users = users);
+  }
+  block(user:User): void { 
+    if(user.isBlocked){  
+      user.isBlocked = false;
+    }
+    else{ 
+      user.isBlocked = true;
+    }
+    this.userService.updateuser(user).subscribe();
   }
 
   ngOnInit() {

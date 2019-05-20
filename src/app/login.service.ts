@@ -15,23 +15,31 @@ export class LoginService {
     .subscribe(users => this.users = users);
    }
 
+  
+  
   loginUser(username:string, password: string ): boolean { 
-    if(this.users.some((item) => item.name === username && item.password === password)){
+    if(this.users.some((item) => item.name === username && item.password === password && item.isBlocked === false)){
       var user = this.users.find((item) => item.name === username && item.password === password);
       console.log("Successfully logging in", username);
-      
-      this.loggedInUser = user;
-      this.userHasLoggedIn = true;
+      localStorage.setItem("loggedUser", JSON.stringify(user));
       return true;
     }
     return false;
   }
 
   isUserLoggedIn(): boolean { 
-    return this.userHasLoggedIn;
+    var user = JSON.parse(localStorage.getItem("loggedUser"));
+    if(user === null) {
+      return false;
+    }
+    return true;
   }
 
   isUserAdmin(): boolean { 
-    return this.loggedInUser.role === "admin";
+    var user = JSON.parse(localStorage.getItem("loggedUser"));
+    if(user === null) {
+      return false;
+    }
+    return user.role === "admin";
   }
 }
