@@ -2,8 +2,9 @@
   <h2>{{course.title}} Details</h2>
   <div><span>title: </span>{{course.title}}</div>
   <div><span>description: </span>{{course.description}}</div>
-  <div><span>rating: </span>{{course.rating}}</div>
+  <div><span>rating: </span>{{getCourseRating()}}</div>
+  <div *ngIf="hasUserJoined"><span>You have joined this course</span></div>
 </div>
-<button class="btn btn-primary" (click)="joinCourse()">Join</button>
-<button class="btn btn-primary" (click)="addRating()">Join</button>
+<button *ngIf="hasUserJoined === false" class="btn btn-primary" (click)="joinCourse(course)">Join</button>
+<button class="btn btn-primary" (click)="addRating()">Add rating</button>
 <button class="btn btn-primary" (click)="goBack()">go back</button>

@@ -2,14 +2,12 @@
 <table class="table table-bordered table-striped text-center" style="width:50%;margin: auto;">
     <th scope="col">Name</th>
     <th scope="col">Description</th>
-    <th scope="col">Rating</th>
     <th scope="col">View</th>
     <th scope="col">Edit</th>
     <th scope="col">Delete</th>
     <tr *ngFor="let course of courses; let even = even; let odd = odd" [class.selected]="course === selectedCourse" [ngClass]="{ odd: odd, even: even }">
       <td>{{course.title}}</td>
       <td>{{course.description}}</td>
-      <td>{{course.rating}}</td>
       <td> <a routerLink="/detail/{{course.id}}" ><img src="assets/img/eye.svg" alt="View"></a>
       <td (click)="onSelectToEdit(course)"><img src="assets/img/brush.svg" alt="Edit" ></td>
       <td (click)="delete(course)"><img src="assets/img/trash.svg" alt="Delete"></td>

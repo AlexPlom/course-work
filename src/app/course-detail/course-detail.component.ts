@@ -4,6 +4,9 @@ import { CourseService }  from '../course.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { User } from '../user';
+import { JoinedCoursesMappingService } from '../joined-courses-mapping.service';
+import { CourseRatingService } from '../course-rating.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -12,26 +15,44 @@ import { Location } from '@angular/common';
 })
 export class CourseDetailComponent implements OnInit {
   course: Course;
+  hasUserJoined: boolean;
 
   constructor(private route: ActivatedRoute,
     private courseService: CourseService,
+    private joinedCoursesMappingService: JoinedCoursesMappingService,
+    private courseRatingService: CourseRatingService,
     private location: Location) { }
 
-    getCourse(): void {
-      const id = +this.route.snapshot.paramMap.get('id');
-      this.courseService.getCourse(id)
-        .subscribe(item => this.course = item);
+  getCourse(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.courseService.getCourse(id)
+      .subscribe(item => {
+        this.course = item;
+        this.updateUserJoinedCourseMapping();
+      });
+  }
 
-        console.log(this.course);
-    }
+  joinCourse(): void { 
+    var user: User = JSON.parse( localStorage.getItem("loggedUser"));
+    this.joinedCoursesMappingService.joinCourse(this.course.id, user.id).subscribe( );
+    this.updateUserJoinedCourseMapping();
+  }
 
-    joinCourse(): void { 
-      console.log("shit")
-    }
+  updateUserJoinedCourseMapping(): void  {
+    var user: User = JSON.parse( localStorage.getItem("loggedUser"));
 
-    addRating(): void { 
+    this.hasUserJoined = this.joinedCoursesMappingService.hasUserJoinedCourse(this.course.id, user.id)
+  }
 
-    }
+  addRating(): void { 
+    var user: User = JSON.parse( localStorage.getItem("loggedUser"));
+
+    this.courseRatingService.rateCourse(this.course.id, 100,user.id).subscribe();
+  }
+
+  getCourseRating(): number { 
+    return this.courseRatingService.getCourseRating(this.course.id);
+  }
     
   ngOnInit() {
     this.getCourse();
