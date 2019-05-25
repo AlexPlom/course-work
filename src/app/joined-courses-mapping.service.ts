@@ -21,15 +21,32 @@ export class JoinedCoursesMappingService {
   joinCourse(courseId: number, userId:number): Observable<any> { 
     var courseMapping = this.joinedCourseMapping.find(x => x.id === courseId); 
 
+    if(!courseMapping) { 
+      courseMapping = new JoinedCourseMapping();
+      courseMapping.id = courseId;
+      courseMapping.usersJoined = [];
+      courseMapping.usersJoined.push(userId);
+      console.log(courseMapping);
+      this.joinedCourseMapping.push(courseMapping);
+      return this.http.post(this.joinedCoursesMappingUrl, courseMapping);
+    }
+
     if(courseMapping.usersJoined.indexOf(userId) === -1) {
       courseMapping.usersJoined.push(userId);
     }
-    
     return this.http.put(this.joinedCoursesMappingUrl, courseMapping);
   };
 
   hasUserJoinedCourse(courseId: number, userId: number): boolean { 
     var courseMapping = this.joinedCourseMapping.find(x => x.id === courseId); 
+    
+    if(!courseMapping) { 
+      courseMapping = new JoinedCourseMapping();
+      courseMapping.id = courseId;
+      courseMapping.usersJoined = [userId]
+      return false;
+    }
+
     if(courseMapping.usersJoined.indexOf(userId) === -1) {
       return false;
     }

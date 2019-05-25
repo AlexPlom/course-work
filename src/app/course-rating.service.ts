@@ -29,6 +29,18 @@ export class CourseRatingService {
   getCourseRating(courseId: number): number { 
     var courseMapping = this.courseRatingMapping.find(x => x.id === courseId); 
 
+    if(!courseMapping){ 
+      var mapping = new CourseRatingMapping();
+      mapping.id = courseId;
+      mapping.ratings = [{
+        rating:0,
+        userId:0
+      }]
+      
+      this.courseRatingMapping.push(mapping);
+      return 0;
+    }
+
     var averageRating = 0;
     courseMapping.ratings.forEach(element => {
       averageRating += element.rating;

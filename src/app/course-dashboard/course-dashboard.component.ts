@@ -12,6 +12,7 @@ export class CourseDashboardComponent implements OnInit {
   courseToAdd: Course = new Course();
   selectedCourse: Course;
   courseToEdit: Course;
+  idCount: number;
 
   onSelect(course: Course): void { 
       if((this.selectedCourse == undefined) === false && this.selectedCourse.title === course.title){ 
@@ -33,12 +34,15 @@ export class CourseDashboardComponent implements OnInit {
 
   add(courseToAdd: Course): void { 
     courseToAdd.rating = 0;
+    courseToAdd.id = this.idCount;
+    this.idCount += 1;
     this.courseService.addCourse(courseToAdd).subscribe();
     this.courses.push(courseToAdd);
   }
 
   delete(course: Course): void {
     this.courses = this.courses.filter(h => h !== course);
+    this.idCount -= 1;
     this.courseService.deleteCourse(course).subscribe();
   }
 
@@ -46,6 +50,7 @@ export class CourseDashboardComponent implements OnInit {
 
   ngOnInit() {
      this.courseService.getCourses()
-     .subscribe(courses => this.courses = courses);
+     .subscribe(courses => {this.courses = courses; this.idCount = courses.length + 1});
+     
   }
 }
