@@ -1,9 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
   <h1 style="text-align:center">Welcome!</h1>
   <nav  style="margin: 0 auto; width: 50%">
-      <a routerLink="/courses" class="btn" >Courses</a>
-      <a routerLink="/users" class="btn" >Users</a>
-      <a routerLink="/courses-admin" class="btn">Dashboard</a>
+      <a  routerLink="/courses" class="btn" >Courses</a>
+      <a *ngIf="loginService.isUserAdmin()" routerLink="/users" class="btn" >Users</a>
+      <a *ngIf="loginService.isUserAdmin()" routerLink="/courses-admin" class="btn">Dashboard</a>
   </nav>
   <!-- <app-user></app-user> -->
   <!-- <app-course></app-course> -->
