@@ -15,6 +15,8 @@ import { CourseRatingService } from '../course-rating.service';
 })
 export class CourseDetailComponent implements OnInit {
   course: Course;
+  ratingOptions: number[] = [1,2,3,4,5];
+  selectedRating: number = 1;
   hasUserJoined: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -47,13 +49,12 @@ export class CourseDetailComponent implements OnInit {
   addRating(): void { 
     var user: User = JSON.parse( localStorage.getItem("loggedUser"));
 
-    this.courseRatingService.rateCourse(this.course.id, 100,user.id).subscribe();
+    this.courseRatingService.rateCourse(this.course.id, this.selectedRating,user.id).subscribe();
   }
 
   getCourseRating(): number { 
     return this.courseRatingService.getCourseRating(this.course.id);
   }
-    
   ngOnInit() {
     this.getCourse();
   }

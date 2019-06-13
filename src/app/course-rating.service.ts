@@ -45,7 +45,7 @@ export class CourseRatingService {
     courseMapping.ratings.forEach(element => {
       averageRating += element.rating;
     });
-    return averageRating / courseMapping.ratings.length;
+    return Math.round(averageRating / courseMapping.ratings.length);
   }
 
   getCourseRatingMapping(): Observable<CourseRatingMapping[]> {

@@ -6,5 +6,10 @@
   <div *ngIf="hasUserJoined"><span>You have joined this course</span></div>
 </div>
 <button *ngIf="hasUserJoined === false" class="btn btn-primary" (click)="joinCourse(course)">Join</button>
+<select [(ngModel)]="selectedRating">
+  <option *ngFor="let o of ratingOptions" [value]="o">
+    {{o}}
+ </option>
+</select>
 <button class="btn btn-primary" (click)="addRating()">Add rating</button>
 <button class="btn btn-primary" (click)="goBack()">go back</button>
